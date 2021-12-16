@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.h2sm</groupId>
-    <artifactId>DB-Layer</artifactId>
+    <artifactId>db-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>DB-Layer</name>
-    <description>DB-Layer</description>
+    <name>db-service</name>
+    <description>db-service</description>
     <properties>
         <java.version>11</java.version>
     </properties>
