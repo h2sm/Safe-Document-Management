@@ -3,14 +3,13 @@ package com.h2sm.mainservice.assignmentService.controller;
 import com.h2sm.mainservice.assignmentService.dto.Assignment;
 import com.h2sm.mainservice.assignmentService.services.AssignmentService;
 import com.h2sm.mainservice.employeeService.employees.Employee;
-import com.h2sm.mainservice.employeeService.positions.Position;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.Date;
+import java.util.List;
 
 @Controller("/assignments")
 @RequiredArgsConstructor
@@ -19,13 +18,7 @@ public class AssignmentsController {//сервис поручений
 
     @PostMapping("/new")
     public Assignment makeNewAssignment(Employee userFrom, Employee userTo) {        //create an assignment
-        var userFromPosition = userFrom.getPosition();
-        var userToPosition = userTo.getPosition();
-        if (userFromPosition.equals(Position.Director)
-                || userFromPosition.equals(Position.HeadOfDepartment)
-                || !userToPosition.equals(Position.Director)
-                || !userFromPosition.equals(Position.DepartmentWorker)){//necessary checks
-
+        if (service.canMakeAnAssignment(userFrom,userTo)){
             var newAssignment = new Assignment(userFrom, userTo, new Date());
             service.addAssignmentToDatabase(newAssignment);
             return newAssignment;
@@ -49,6 +42,10 @@ public class AssignmentsController {//сервис поручений
     @GetMapping("/get/{id}")
     public Assignment getAnAssignment(@PathVariable long id) {
         return service.getAssignment(id);
+    }
+    @GetMapping("/getAll")
+    public List<Assignment> getAllAssignments(){
+        return service.getAllAssignmentsOfThisUser();
     }
 
     @PostMapping("/push")
