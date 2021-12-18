@@ -1,20 +1,46 @@
 package com.h2sm.mainservice.assignmentService.controller;
 
+import com.h2sm.mainservice.assignmentService.dto.Assignment;
+import com.h2sm.mainservice.assignmentService.services.AssignmentService;
 import com.h2sm.mainservice.employeeService.employees.Employee;
+import com.h2sm.mainservice.employeeService.positions.Position;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Date;
+
 @Controller("/assignments")
+@RequiredArgsConstructor
 public class AssignmentsController {
+    private final AssignmentService service;
     @PostMapping("/new")
-    public String makeNewAssignment(Employee userFrom, Employee userTo){
-        //create an assignment
-        //check if user has rights to do so
+    public Assignment makeNewAssignment(Employee userFrom, Employee userTo){        //create an assignment
+        var userFromPosition = userFrom.getPosition();
+        if (userFromPosition.equals(Position.Director) || userFromPosition.equals(Position.HeadOfDepartment)){
+            //create an assignment
+            var newAssignment = new Assignment(userFrom,userTo, new Date());
+            service.addAssignmentToDatabase(newAssignment);
+            return newAssignment;
+        }
+        else {
+            return null;
+        }
+    }
+    @GetMapping("/delete/{id}")
+    public boolean deleteAnAssignment(@PathVariable long id){//delete an assignment
+        service.deleteAssignmentToDatabase(id);
+        return true;
+    }
+    @PostMapping("/modify")
+    public String modifyAnAssignment(Assignment a){
+        service.modifyAssignment(a);
         return "null";
     }
-    @GetMapping("/delete")
-    public String deleteAnAssignment(){
-        return "null";
+    @GetMapping("/get/{id}")
+    public Assignment getAnAssignment(@PathVariable long id){
+        return service.getAssignment(id);
     }
 }
