@@ -1,6 +1,5 @@
 package com.h2sm.mainservice.assignmentService.controller;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.h2sm.mainservice.assignmentService.dto.Assignment;
 import com.h2sm.mainservice.assignmentService.services.AssignmentService;
 import com.h2sm.mainservice.employeeService.employees.Employee;
@@ -19,14 +18,17 @@ public class AssignmentsController {//сервис поручений
     private final AssignmentService service;
 
     @PostMapping("/new")
-    public Assignment makeNewAssignment(Employee userFrom, Employee userTo, Assignment assignment) {        //create an assignment
+    public Assignment makeNewAssignment(Employee userFrom, Employee userTo) {        //create an assignment
         var userFromPosition = userFrom.getPosition();
-        if (userFromPosition.equals(Position.Director) || userFromPosition.equals(Position.HeadOfDepartment)) {
-            assignment.setWhoAssigned(userFrom);
-            assignment.setWhoWasAssignee(userTo);
-            assignment.setDateOfAssign(new Date());
-            service.addAssignmentToDatabase(assignment);
-            return assignment;
+        var userToPosition = userTo.getPosition();
+        if (userFromPosition.equals(Position.Director)
+                || userFromPosition.equals(Position.HeadOfDepartment)
+                || !userToPosition.equals(Position.Director)
+                || !userFromPosition.equals(Position.DepartmentWorker)){//necessary checks
+
+            var newAssignment = new Assignment(userFrom, userTo, new Date());
+            service.addAssignmentToDatabase(newAssignment);
+            return newAssignment;
         } else {
             return null;
         }

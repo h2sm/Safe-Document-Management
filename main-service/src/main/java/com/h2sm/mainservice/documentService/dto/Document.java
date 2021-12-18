@@ -10,4 +10,5 @@ public class Document {
     private long documentID;
     private DocumentState documentState;
     private byte[] documentData;
+    private boolean isSigned = false;
 }

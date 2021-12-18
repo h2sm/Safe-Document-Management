@@ -27,6 +27,4 @@ public class AssignmentService {
                                                       Assignment assignment){
         return null;
     }
-
-    public void changeAnAssignee()
 }
