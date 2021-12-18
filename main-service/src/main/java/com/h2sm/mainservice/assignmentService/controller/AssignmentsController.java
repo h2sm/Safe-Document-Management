@@ -1,5 +1,6 @@
 package com.h2sm.mainservice.assignmentService.controller;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.h2sm.mainservice.assignmentService.dto.Assignment;
 import com.h2sm.mainservice.assignmentService.services.AssignmentService;
 import com.h2sm.mainservice.employeeService.employees.Employee;
@@ -14,33 +15,46 @@ import java.util.Date;
 
 @Controller("/assignments")
 @RequiredArgsConstructor
-public class AssignmentsController {
+public class AssignmentsController {//сервис поручений
     private final AssignmentService service;
+
     @PostMapping("/new")
-    public Assignment makeNewAssignment(Employee userFrom, Employee userTo){        //create an assignment
+    public Assignment makeNewAssignment(Employee userFrom, Employee userTo, Assignment assignment) {        //create an assignment
         var userFromPosition = userFrom.getPosition();
-        if (userFromPosition.equals(Position.Director) || userFromPosition.equals(Position.HeadOfDepartment)){
-            //create an assignment
-            var newAssignment = new Assignment(userFrom,userTo, new Date());
-            service.addAssignmentToDatabase(newAssignment);
-            return newAssignment;
-        }
-        else {
+        if (userFromPosition.equals(Position.Director) || userFromPosition.equals(Position.HeadOfDepartment)) {
+            assignment.setWhoAssigned(userFrom);
+            assignment.setWhoWasAssignee(userTo);
+            assignment.setDateOfAssign(new Date());
+            service.addAssignmentToDatabase(assignment);
+            return assignment;
+        } else {
             return null;
         }
     }
+
     @GetMapping("/delete/{id}")
-    public boolean deleteAnAssignment(@PathVariable long id){//delete an assignment
+    public boolean deleteAnAssignment(@PathVariable long id) {//delete an assignment
         service.deleteAssignmentToDatabase(id);
         return true;
     }
+
     @PostMapping("/modify")
-    public String modifyAnAssignment(Assignment a){
+    public String modifyAnAssignment(Assignment a) {
         service.modifyAssignment(a);
         return "null";
     }
+
     @GetMapping("/get/{id}")
-    public Assignment getAnAssignment(@PathVariable long id){
+    public Assignment getAnAssignment(@PathVariable long id) {
         return service.getAssignment(id);
     }
+
+    @PostMapping("/push")
+    public Assignment pushAnAssignmentToAnotherPerson(Employee from,
+                                                      Employee to,
+                                                      Assignment assignment) {
+        return service.pushAnAssignmentToAnotherPerson(from, to, assignment);
+    }
+
+
 }
