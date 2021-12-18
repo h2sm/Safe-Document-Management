@@ -1,4 +1,4 @@
-package com.h2sm.documentservice;
+package com.h2sm.mainservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

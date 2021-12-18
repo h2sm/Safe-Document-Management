@@ -1,4 +1,4 @@
-package com.h2sm.documentservice;
+package com.h2sm.mainservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
