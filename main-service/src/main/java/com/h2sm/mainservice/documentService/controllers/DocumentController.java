@@ -1,10 +1,13 @@
 package com.h2sm.mainservice.documentService.controllers;
 
+import com.h2sm.mainservice.documentService.dto.Document;
 import com.h2sm.mainservice.employeeService.employees.Employee;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.lang.annotation.Documented;
 
 @Controller("/document")
 public class DocumentController {
@@ -19,5 +22,9 @@ public class DocumentController {
     @GetMapping("/delete/{id}")
     public String deleteDocument(@PathVariable long id){
         return "ok";
+    }
+    @PostMapping("/sign")
+    public Document signDocument(Document doc){
+
     }
 }

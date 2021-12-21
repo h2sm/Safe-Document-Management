@@ -4,10 +4,11 @@ import com.h2sm.mainservice.assignmentService.dto.Assignment;
 import com.h2sm.mainservice.employeeService.positions.Position;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class Employee {
+public class Employee implements Serializable {
     private long employeeID;
     private String name;
     private String surname;
