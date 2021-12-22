@@ -1,8 +1,7 @@
-package com.h2sm.mainservice.employeeService.contollers;
+package com.h2sm.mainservice.controllers;
 
-import com.h2sm.mainservice.employeeService.employees.Employee;
-import com.h2sm.mainservice.employeeService.positions.Position;
-import org.springframework.http.RequestEntity;
+import com.h2sm.mainservice.dtos.Employee;
+import com.h2sm.mainservice.dtos.Position;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

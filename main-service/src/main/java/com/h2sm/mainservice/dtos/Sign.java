@@ -1,7 +1,7 @@
-package com.h2sm.mainservice.signService.dto;
+package com.h2sm.mainservice.dtos;
 
-import com.h2sm.mainservice.documentService.dto.Document;
-import com.h2sm.mainservice.employeeService.employees.Employee;
+import com.h2sm.mainservice.dtos.Document;
+import com.h2sm.mainservice.dtos.Employee;
 import lombok.Data;
 
 import java.io.Serializable;

@@ -1,8 +1,6 @@
-package com.h2sm.mainservice.documentService.dto;
+package com.h2sm.mainservice.dtos;
 
-import com.h2sm.mainservice.assignmentService.dto.Assignment;
-import com.h2sm.mainservice.documentService.documentStates.DocumentState;
-import com.h2sm.mainservice.signService.dto.Sign;
+import com.h2sm.mainservice.controllers.DocumentState;
 import lombok.Data;
 
 import java.io.Serializable;

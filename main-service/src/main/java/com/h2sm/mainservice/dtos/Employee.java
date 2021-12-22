@@ -1,7 +1,5 @@
-package com.h2sm.mainservice.employeeService.employees;
+package com.h2sm.mainservice.dtos;
 
-import com.h2sm.mainservice.assignmentService.dto.Assignment;
-import com.h2sm.mainservice.employeeService.positions.Position;
 import lombok.Data;
 
 import java.io.Serializable;

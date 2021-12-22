@@ -1,23 +1,21 @@
-package com.h2sm.mainservice.assignmentService.controller;
+package com.h2sm.mainservice.controllers;
 
-import com.h2sm.mainservice.assignmentService.dto.Assignment;
-import com.h2sm.mainservice.assignmentService.services.AssignmentService;
-import com.h2sm.mainservice.employeeService.employees.Employee;
+import com.h2sm.mainservice.dtos.Assignment;
+import com.h2sm.mainservice.services.AssignmentService;
+import com.h2sm.mainservice.dtos.Employee;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.Date;
 import java.util.List;
 
-@Controller("/assignments")
+@RestController("/assignments")
 @RequiredArgsConstructor
 public class AssignmentsController {//сервис поручений
     private final AssignmentService service;
 
     @PostMapping("/new")
-    public Assignment makeNewAssignment(Employee userFrom, Employee userTo) {        //create an assignment
+    public Assignment makeNewAssignment(Employee userFrom, Employee userTo) {//create an assignment
         if (service.canMakeAnAssignment(userFrom,userTo)){
             var newAssignment = new Assignment(userFrom, userTo, new Date());
             service.addAssignmentToDatabase(newAssignment);
@@ -27,7 +25,7 @@ public class AssignmentsController {//сервис поручений
         }
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/del/{id}")
     public boolean deleteAnAssignment(@PathVariable long id) {//delete an assignment
         service.deleteAssignmentToDatabase(id);
         return true;
@@ -43,7 +41,8 @@ public class AssignmentsController {//сервис поручений
     public Assignment getAnAssignment(@PathVariable long id) {
         return service.getAssignment(id);
     }
-    @GetMapping("/getAll")
+
+    @RequestMapping("/getAll")
     public List<Assignment> getAllAssignments(){
         return service.getAllAssignmentsOfThisUser();
     }

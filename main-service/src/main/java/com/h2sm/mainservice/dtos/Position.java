@@ -1,4 +1,4 @@
-package com.h2sm.mainservice.employeeService.positions;
+package com.h2sm.mainservice.dtos;
 
 public enum Position {
     Director,

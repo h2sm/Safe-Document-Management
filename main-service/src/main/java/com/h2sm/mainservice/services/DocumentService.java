@@ -1,9 +1,7 @@
-package com.h2sm.mainservice.documentService.services;
+package com.h2sm.mainservice.services;
 
-import com.h2sm.mainservice.documentService.dto.Document;
+import com.h2sm.mainservice.dtos.Document;
 import org.springframework.stereotype.Service;
-
-import javax.print.Doc;
 
 @Service
 public class DocumentService {

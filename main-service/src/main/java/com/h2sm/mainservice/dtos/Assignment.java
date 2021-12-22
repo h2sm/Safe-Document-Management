@@ -1,7 +1,5 @@
-package com.h2sm.mainservice.assignmentService.dto;
+package com.h2sm.mainservice.dtos;
 
-import com.h2sm.mainservice.documentService.dto.Document;
-import com.h2sm.mainservice.employeeService.employees.Employee;
 import lombok.Data;
 
 import java.util.Date;

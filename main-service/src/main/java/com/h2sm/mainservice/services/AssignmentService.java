@@ -1,10 +1,11 @@
-package com.h2sm.mainservice.assignmentService.services;
+package com.h2sm.mainservice.services;
 
-import com.h2sm.mainservice.assignmentService.dto.Assignment;
-import com.h2sm.mainservice.employeeService.employees.Employee;
-import com.h2sm.mainservice.employeeService.positions.Position;
+import com.h2sm.mainservice.dtos.Assignment;
+import com.h2sm.mainservice.dtos.Employee;
+import com.h2sm.mainservice.dtos.Position;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,7 +35,10 @@ public class AssignmentService {
     }
 
     public List<Assignment> getAllAssignmentsOfThisUser(){
-        return null;
+        var x = new Assignment(new Employee(), new Employee(), new Date());
+        var y = new Assignment(new Employee(), new Employee(), new Date());
+        var list = List.of(x,y);
+        return list;
     }
 
     public boolean canMakeAnAssignment(Employee userFrom, Employee userTo) {
