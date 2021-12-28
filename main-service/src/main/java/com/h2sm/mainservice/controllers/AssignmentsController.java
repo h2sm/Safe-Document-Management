@@ -4,15 +4,20 @@ import com.h2sm.mainservice.dtos.Assignment;
 import com.h2sm.mainservice.services.AssignmentService;
 import com.h2sm.mainservice.dtos.Employee;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.Date;
 import java.util.List;
 
-@RestController("/assignments")
+@RestController
 @RequiredArgsConstructor
 public class AssignmentsController {//сервис поручений
     private final AssignmentService service;
+    private final MediaType type = MediaType.APPLICATION_JSON;
 
     @PostMapping("/new")
     public Assignment makeNewAssignment(Employee userFrom, Employee userTo) {//create an assignment
@@ -42,8 +47,9 @@ public class AssignmentsController {//сервис поручений
         return service.getAssignment(id);
     }
 
-    @RequestMapping("/getAll")
+    @GetMapping(value = "/assignments/getAll")
     public List<Assignment> getAllAssignments(){
+        service.getAllAssignmentsOfThisUser().forEach(System.out::println);
         return service.getAllAssignmentsOfThisUser();
     }
 

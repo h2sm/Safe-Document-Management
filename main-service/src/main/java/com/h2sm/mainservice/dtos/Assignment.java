@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+
 public class Assignment {
     private long assignmentID;
     private Employee whoAssigned;

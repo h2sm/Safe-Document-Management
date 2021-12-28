@@ -1,14 +1,17 @@
 $(function () {
     $("#getAssignmentsBtn").click(function () {
         $.ajax({
+            type:"GET",
             url: "/assignments/getAll",
             contentType: "application/json; charset=utf-8",
-            dataType: "json",
             data: null,
             success: function (data) {
                 console.log(data);
                 var $response = $("#response");
-                $response.empty().text(data);
+                data.forEach(a => {
+                    $response.html(data);
+                })
+                //$response.empty().text(data);
             },
             error: function (d) {
                 console.log(d);
