@@ -9,15 +9,15 @@ import java.util.List;
 
 public class Assignment {
     private long assignmentID;
-    private Employee whoAssigned;
-    private Employee whoWasAssignee;
-    private Employee whoClosedAssignment;
+    private Worker whoAssigned;
+    private Worker whoWasAssignee;
+    private Worker whoClosedAssignment;
     private String commentaryToAssignment;
     private Date dateOfAssign;
     private boolean isActive;
     private List<Document> listOfDocumentsConnectedToAssignment;
 
-    public Assignment(Employee whoAssigned, Employee whoWasAssignee,Date dateOfAssign){
+    public Assignment(Worker whoAssigned, Worker whoWasAssignee, Date dateOfAssign){
         this.whoAssigned = whoAssigned;
         this.whoWasAssignee = whoWasAssignee;
         this.dateOfAssign = dateOfAssign;

@@ -2,25 +2,23 @@ package com.h2sm.mainservice.controllers;
 
 import com.h2sm.mainservice.dtos.Assignment;
 import com.h2sm.mainservice.services.AssignmentService;
-import com.h2sm.mainservice.dtos.Employee;
+import com.h2sm.mainservice.dtos.Worker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/assignments")
 public class AssignmentsController {//сервис поручений
     private final AssignmentService service;
     private final MediaType type = MediaType.APPLICATION_JSON;
 
     @PostMapping("/new")
-    public Assignment makeNewAssignment(Employee userFrom, Employee userTo) {//create an assignment
+    public Assignment makeNewAssignment(Worker userFrom, Worker userTo) {//create an assignment
         if (service.canMakeAnAssignment(userFrom,userTo)){
             var newAssignment = new Assignment(userFrom, userTo, new Date());
             service.addAssignmentToDatabase(newAssignment);
@@ -47,15 +45,14 @@ public class AssignmentsController {//сервис поручений
         return service.getAssignment(id);
     }
 
-    @GetMapping(value = "/assignments/getAll")
+    @GetMapping(value = "/getAll")
     public List<Assignment> getAllAssignments(){
-        service.getAllAssignmentsOfThisUser().forEach(System.out::println);
         return service.getAllAssignmentsOfThisUser();
     }
 
     @PostMapping("/push")
-    public Assignment pushAnAssignmentToAnotherPerson(Employee from,
-                                                      Employee to,
+    public Assignment pushAnAssignmentToAnotherPerson(Worker from,
+                                                      Worker to,
                                                       Assignment assignment) {
         return service.pushAnAssignmentToAnotherPerson(from, to, assignment);
     }

@@ -1,6 +1,6 @@
 package com.h2sm.mainservice.controllers;
 
-import com.h2sm.mainservice.dtos.Employee;
+import com.h2sm.mainservice.dtos.Worker;
 import com.h2sm.mainservice.dtos.Position;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,16 +11,16 @@ import java.util.Optional;
 @RestController
 public class EmployeeController {
     @GetMapping("/getEmployees")
-    public List<Employee> getListOfEmployees(){
+    public List<Worker> getListOfEmployees(){
         return null;
     }
 
     @GetMapping("/getEmplByPosition")
-    public List<Employee> getEmployeesOfThisPosition(@RequestParam("pos") Optional<Position> position){
+    public List<Worker> getEmployeesOfThisPosition(@RequestParam("pos") Optional<Position> position){
         return null;
     }
     @PostMapping("/add")
-    public ResponseEntity.BodyBuilder addEmployee(Employee e){
+    public ResponseEntity.BodyBuilder addEmployee(Worker e){
         return ResponseEntity.accepted();
     }
 }

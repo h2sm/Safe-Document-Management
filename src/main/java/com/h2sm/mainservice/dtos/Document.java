@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 @Data
 public class Document implements Serializable {
+    private Worker whoUploaded;
     private Assignment assignmentAffiliatedToThisDocument;
     private long documentID;
     private DocumentState documentState;

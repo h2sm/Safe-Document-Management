@@ -1,7 +1,7 @@
 package com.h2sm.mainservice.services;
 
 import com.h2sm.mainservice.dtos.Assignment;
-import com.h2sm.mainservice.dtos.Employee;
+import com.h2sm.mainservice.dtos.Worker;
 import com.h2sm.mainservice.dtos.Position;
 import org.springframework.stereotype.Service;
 
@@ -28,20 +28,20 @@ public class AssignmentService {
         return null;
     }
 
-    public Assignment pushAnAssignmentToAnotherPerson(Employee from,
-                                                      Employee to,
+    public Assignment pushAnAssignmentToAnotherPerson(Worker from,
+                                                      Worker to,
                                                       Assignment assignment) {
         return null;
     }
 
     public List<Assignment> getAllAssignmentsOfThisUser(){
-        var x = new Assignment(new Employee(), new Employee(), new Date());
-        var y = new Assignment(new Employee(), new Employee(), new Date());
+        var x = new Assignment(new Worker(), new Worker(), new Date());
+        var y = new Assignment(new Worker(), new Worker(), new Date());
         var list = List.of(x,y);
         return list;
     }
 
-    public boolean canMakeAnAssignment(Employee userFrom, Employee userTo) {
+    public boolean canMakeAnAssignment(Worker userFrom, Worker userTo) {
         var userFromPosition = userFrom.getPosition();
         var userToPosition = userTo.getPosition();
         //necessary checks
