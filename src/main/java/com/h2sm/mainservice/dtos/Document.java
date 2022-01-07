@@ -1,17 +1,20 @@
 package com.h2sm.mainservice.dtos;
 
-import com.h2sm.mainservice.controllers.DocumentState;
 import lombok.Data;
-
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
+@Entity(name = "documents")
 public class Document implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "docid")
+    private long id;
+    @Column(name = "doc")
+    private byte[] data;
+    @Column(name = "whouploaded")
+    @JoinColumn(name = "worker")
+    @OneToOne
     private Worker whoUploaded;
-    private Assignment assignmentAffiliatedToThisDocument;
-    private long documentID;
-    private DocumentState documentState;
-    private Sign sign;
-    private byte[] documentData;
-    private boolean isSigned = false;
 }
