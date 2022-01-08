@@ -2,25 +2,43 @@ package com.h2sm.mainservice.dtos;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Data
-
+@Entity
 public class Assignment {
-    private long assignmentID;
-    private Worker whoAssigned;
-    private Worker whoWasAssignee;
-    private Worker whoClosedAssignment;
-    private String commentaryToAssignment;
-    private Date dateOfAssign;
-    private boolean isActive;
-    private List<Document> listOfDocumentsConnectedToAssignment;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "aid")
+    private long aid;
 
-    public Assignment(Worker whoAssigned, Worker whoWasAssignee, Date dateOfAssign){
-        this.whoAssigned = whoAssigned;
-        this.whoWasAssignee = whoWasAssignee;
-        this.dateOfAssign = dateOfAssign;
-        isActive = true;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "whocreated")
+    private Worker whoCreated;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "whoassignee")
+    private Worker whoAssignee;
+
+    @Enumerated(EnumType.STRING)
+    private AssignmentStatus status;
+
+    @Column(name="isdelegated")
+    private boolean isDelegated;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "docs")
+    private Document docs;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "signs")
+    private Sign signs;
+
+    public Assignment(Worker whoCreated, Worker whoAssignee){
+        this.whoCreated = whoCreated;
+        this.whoAssignee = whoAssignee;
+        this.status = AssignmentStatus.active;
     }
 }

@@ -35,8 +35,8 @@ public class AssignmentService {
     }
 
     public List<Assignment> getAllAssignmentsOfThisUser(){
-        var x = new Assignment(new Worker(), new Worker(), new Date());
-        var y = new Assignment(new Worker(), new Worker(), new Date());
+        var x = new Assignment(new Worker(), new Worker());
+        var y = new Assignment(new Worker(), new Worker());
         var list = List.of(x,y);
         return list;
     }

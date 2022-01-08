@@ -13,8 +13,7 @@ public class Document implements Serializable {
     private long id;
     @Column(name = "doc")
     private byte[] data;
-    @Column(name = "whouploaded")
-    @JoinColumn(name = "worker")
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "whouploaded")
     private Worker whoUploaded;
 }

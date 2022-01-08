@@ -20,7 +20,7 @@ public class AssignmentsController {//сервис поручений
     @PostMapping("/new")
     public Assignment makeNewAssignment(Worker userFrom, Worker userTo) {//create an assignment
         if (service.canMakeAnAssignment(userFrom,userTo)){
-            var newAssignment = new Assignment(userFrom, userTo, new Date());
+            var newAssignment = new Assignment(userFrom, userTo);
             service.addAssignmentToDatabase(newAssignment);
             return newAssignment;
         } else {

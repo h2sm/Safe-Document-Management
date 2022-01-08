@@ -14,7 +14,7 @@ public class Sign {
     private long id;
     @Column(name = "workersids")
     private String workersIDs;
-    @Column(name = "documentid")
-    @OneToOne
+    @JoinColumn(name = "documentid")
+    @OneToOne(fetch = FetchType.LAZY)
     private Document document;
 }
