@@ -28,9 +28,7 @@ public class AssignmentService {
         return null;
     }
 
-    public Assignment pushAnAssignmentToAnotherPerson(Worker from,
-                                                      Worker to,
-                                                      Assignment assignment) {
+    public Assignment pushAnAssignmentToAnotherPerson(Assignment assignment, Worker to) {
         return null;
     }
 
@@ -41,9 +39,9 @@ public class AssignmentService {
         return list;
     }
 
-    public boolean canMakeAnAssignment(Worker userFrom, Worker userTo) {
-        var userFromPosition = userFrom.getPosition();
-        var userToPosition = userTo.getPosition();
+    public boolean canMakeAnAssignment(Assignment a) {
+        var userFromPosition = a.getWhoCreated().getPosition();
+        var userToPosition = a.getWhoAssignee().getPosition();
         //necessary checks
         return userFromPosition.equals(Position.Director)
                 || userFromPosition.equals(Position.HeadOfDepartment)

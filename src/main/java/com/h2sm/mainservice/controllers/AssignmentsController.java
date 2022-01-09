@@ -5,6 +5,7 @@ import com.h2sm.mainservice.services.AssignmentService;
 import com.h2sm.mainservice.dtos.Worker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -15,14 +16,13 @@ import java.util.List;
 @RequestMapping("/assignments")
 public class AssignmentsController {//сервис поручений
     private final AssignmentService service;
-    private final MediaType type = MediaType.APPLICATION_JSON;
 
     @PostMapping("/new")
-    public Assignment makeNewAssignment(Worker userFrom, Worker userTo) {//create an assignment
-        if (service.canMakeAnAssignment(userFrom,userTo)){
-            var newAssignment = new Assignment(userFrom, userTo);
-            service.addAssignmentToDatabase(newAssignment);
-            return newAssignment;
+    public Assignment makeNewAssignment(Assignment a, Model model) {//create an assignment
+
+        if (service.canMakeAnAssignment(a)){
+            service.addAssignmentToDatabase(a);
+            return a;
         } else {
             return null;
         }
@@ -51,10 +51,14 @@ public class AssignmentsController {//сервис поручений
     }
 
     @PostMapping("/push")
-    public Assignment pushAnAssignmentToAnotherPerson(Worker from,
-                                                      Worker to,
-                                                      Assignment assignment) {
-        return service.pushAnAssignmentToAnotherPerson(from, to, assignment);
+    public Assignment pushAnAssignmentToAnotherPerson(Worker to,
+                                                      Assignment assignment,
+                                                      Model model) {
+        return service.pushAnAssignmentToAnotherPerson(assignment, to);
+    }
+    @PostMapping("/delegate")
+    public Assignment delegate(Worker newAssignee, Assignment assignment){
+        return null;
     }
 
 

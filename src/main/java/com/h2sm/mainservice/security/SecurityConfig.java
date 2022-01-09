@@ -1,5 +1,7 @@
 package com.h2sm.mainservice.security;
 
+import com.h2sm.mainservice.dtos.Permission;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,7 +24,7 @@ import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
-
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //    String[] staticResources  =  {
@@ -35,9 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
-    public SecurityConfiguration(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -47,13 +46,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 //                .antMatchers(staticResources).permitAll()
                 .antMatchers("/**")
-                .hasAuthority(DIRECTOR_READ.getPermission())
-                .antMatchers(GET, "/api/**")
-                .hasAuthority(DIRECTOR_READ.getPermission())
-                .antMatchers(POST, "/api/**")
-                .hasAuthority(DIRECTOR_WRITE.getPermission())
-                .antMatchers(DELETE, "/api/**")
-                .hasAuthority(DIRECTOR_WRITE.getPermission())
+                .hasAuthority(Permission.DIRECTOR_READ.toString())
+//                .antMatchers(GET, "/api/**")
+//                .hasAuthority(DIRECTOR_READ.getPermission())
+//                .antMatchers(POST, "/api/**")
+//                .hasAuthority(DIRECTOR_WRITE.getPermission())
+//                .antMatchers(DELETE, "/api/**")
+//                .hasAuthority(DIRECTOR_WRITE.getPermission())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

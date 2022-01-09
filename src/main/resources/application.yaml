@@ -1,0 +1,17 @@
+spring:
+  thymeleaf:
+    cache: true
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+  application:
+    name: Safe Document
+  datasource:
+    url: jdbc:postgresql://localhost:5432/DocumentDB
+    username: docker
+    password: docker
+  main:
+    allow-circular-references: true
+  jpa:
+    show-sql: true
+

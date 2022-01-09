@@ -1,5 +1,6 @@
 package com.h2sm.mainservice.security;
 
+import com.h2sm.mainservice.dtos.Worker;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +18,7 @@ public class SecureUser implements UserDetails {
     private final String password;
     private final List<SimpleGrantedAuthority> authorityList;
     private final boolean isActive;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorityList;
@@ -52,16 +54,16 @@ public class SecureUser implements UserDetails {
         return isActive;
     }
 
-    public static UserDetails fromUser(User user){
+    public static UserDetails fromUser(Worker worker) {
+        System.out.println(worker);
         return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
+                worker.getEmail(),
+                worker.getPassword(),
                 true,
                 true,
                 true,
                 true,
-                user.getRole().getAuthorities()
-        );
+                worker.getPosition().getAuthorities());
     }
 }
 
