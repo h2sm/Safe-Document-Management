@@ -14,6 +14,6 @@ public class AuthController {
 
     @GetMapping("/success")
     public String successPage(){
-        return "success";
+        return "index";
     }
 }

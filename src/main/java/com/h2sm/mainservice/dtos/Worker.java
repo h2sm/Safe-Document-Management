@@ -1,13 +1,14 @@
 package com.h2sm.mainservice.dtos;
 
-import com.h2sm.mainservice.configs.PositionConverter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.repository.cdi.Eager;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.lang.annotation.Retention;
 
 @Data
 @Entity
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Eager
 public class Worker implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +30,8 @@ public class Worker implements Serializable {
     private String email;
     @Column(name = "upasswd")
     private String password;
-//    @Enumerated(EnumType.STRING)
-    @Column(name = "uposition")
-    @Convert(converter = PositionConverter.class)
+    @Column(name = "uposition", nullable = false)
+    @Enumerated(value = EnumType.STRING)
     private Position position;
+
 }
