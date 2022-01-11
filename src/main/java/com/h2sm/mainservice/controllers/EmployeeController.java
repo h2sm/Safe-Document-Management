@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@RestController("/employee")
 public class EmployeeController {
     @GetMapping("/getEmployees")
     public List<Worker> getListOfEmployees(){
