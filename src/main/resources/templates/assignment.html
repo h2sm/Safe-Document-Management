@@ -9,27 +9,24 @@
 <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="../static/js/assignments_js.js"></script>
+<script type="text/javascript" src="../static/js/getAssignments.js"></script>
 <button type="button" class="btn btn-default" id="getAssignmentsBtn">Получить все поручения</button>
+<button type="button" class="btn btn-default" id="getDelegatedAssignmentsBtn">Получить все делегированные Мне поручения</button>
+
 <table id="assignmentTable" border='1'>
     <tr>
         <th>ID поручения</th>
-        <th>Дата назначения поручения</th>
-        <th>Документы, связанные с поручениями</th>
         <th>Кто дал поручение</th>
-        <th>Кто закрыл поручение</th>
         <th>Кому было поручено</th>
+        <th>Статус</th>
+        <th>Документы</th>
+        <th>Подписи</th>
     </tr>
 </table>
-<table id="delegatedAssignmentsToUser">
-
+<table id="delegatedAssignments">
     <tr>
         <th>ID поручения</th>
-        <th>Дата назначения поручения</th>
-        <th>Документы, связанные с поручениями</th>
-        <th>Кто дал поручение</th>
-        <th>Кто закрыл поручение</th>
-        <th>Кому было поручено</th>
+        <th>Кому было передано</th>
     </tr>
 </table>
 </body>
