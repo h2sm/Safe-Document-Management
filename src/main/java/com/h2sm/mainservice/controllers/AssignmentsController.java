@@ -6,12 +6,13 @@ import com.h2sm.mainservice.services.AssignmentService;
 import com.h2sm.mainservice.dtos.Worker;
 import com.h2sm.mainservice.services.DelegateAssignmentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/assignments")
 public class AssignmentsController {//сервис поручений
@@ -46,12 +47,13 @@ public class AssignmentsController {//сервис поручений
     }
 
     @GetMapping(value = "/getAll")
-    public List<Assignment> getAllAssignments() {
-        List<DelegatedAssignment> daList = delegateAssignmentService.g;
-        service.getAllAssignmentsOfThisUser().stream().forEach(assignment -> {
-
-        });
-        return service.getAllAssignmentsOfThisUser();
+    public String getAllAssignments(Model model) {
+        List<DelegatedAssignment> daList = delegateAssignmentService.getDelegatedAssignmentsForThisWorker();
+        model.addAttribute("tasks", daList);
+//        service.getAllAssignmentsOfThisUser().stream().forEach(assignment -> {
+//
+//        });
+        return "table/tableTask";
     }
 
     @PostMapping("/delegate")

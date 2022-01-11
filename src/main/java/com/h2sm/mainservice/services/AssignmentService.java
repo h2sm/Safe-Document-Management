@@ -35,7 +35,7 @@ public class AssignmentService {
         return aRepo.getById(id);
     }
 
-    public List<Assignment> getAllAssignmentsOfThisUser(){
+    public List<Assignment> getAllAssignmentsForThisUser(){
         return aRepo.getAssignmentsForThisUser(ContextUtil.getAuthorizedUserName());
     }
 

@@ -4,6 +4,7 @@ import com.h2sm.mainservice.dtos.Assignment;
 import com.h2sm.mainservice.dtos.DelegatedAssignment;
 import com.h2sm.mainservice.dtos.Worker;
 import com.h2sm.mainservice.repository.DelegateAssignmentRepository;
+import com.h2sm.mainservice.utils.ContextUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,8 @@ public class DelegateAssignmentService {
         repo.save(d);
     }
 
-    public List<DelegatedAssignment> getDelegatedAssignmentsForThisWorker(Worker worker) {
-        return repo.
+    public List<DelegatedAssignment> getDelegatedAssignmentsForThisWorker() {
+        return repo.getAllDelegatedAssignmentsForThisUser(ContextUtil.getAuthorizedUserName());
     }
+
 }
