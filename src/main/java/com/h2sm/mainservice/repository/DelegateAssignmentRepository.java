@@ -18,4 +18,5 @@ public interface DelegateAssignmentRepository extends JpaRepository<DelegatedAss
     Optional<Assignment> findExactDelegatedAssignment(long id);
     @Query(value = "select * from worker where uid = (select changedassignee from delegateassignment d, assignment a where a.aid = ?1 and d.assignmentid =?1)", nativeQuery = true)
     Optional<Worker> findWhoIsANewAssignee(long assignmentID);
+    List<DelegatedAssignment> getAllDelegatedAssigmentsForThisUser(String uname);
 }

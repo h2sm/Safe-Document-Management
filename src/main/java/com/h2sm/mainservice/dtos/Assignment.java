@@ -2,10 +2,7 @@ package com.h2sm.mainservice.dtos;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
@@ -25,6 +22,7 @@ public class Assignment {
     private Worker whoAssignee;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private AssignmentStatus status;
 
     @Column(name="isdelegated")

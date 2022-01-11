@@ -5,6 +5,7 @@ import com.h2sm.mainservice.dtos.DelegatedAssignment;
 import com.h2sm.mainservice.dtos.Worker;
 import com.h2sm.mainservice.dtos.Position;
 import com.h2sm.mainservice.repository.AssignmentRepository;
+import com.h2sm.mainservice.utils.ContextUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,10 +36,7 @@ public class AssignmentService {
     }
 
     public List<Assignment> getAllAssignmentsOfThisUser(){
-        var x = new Assignment(new Worker(), new Worker());
-        var y = new Assignment(new Worker(), new Worker());
-        var list = List.of(x,y);
-        return list;
+        return aRepo.getAssignmentsForThisUser(ContextUtil.getAuthorizedUserName());
     }
 
     public boolean canMakeAnAssignment(Assignment a) {
@@ -50,4 +48,5 @@ public class AssignmentService {
                 || !userToPosition.equals(Position.Director)
                 || !userFromPosition.equals(Position.DepartmentWorker);
     }
+
 }

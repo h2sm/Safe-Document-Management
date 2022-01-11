@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/assignments")
 public class AssignmentsController {//сервис поручений
     private final AssignmentService service;
-    private final DelegateAssignmentService delegateAssService;
+    private final DelegateAssignmentService delegateAssignmentService;
 
     @PostMapping("/new")
     public Assignment makeNewAssignment(Assignment a, Model model) {//create an assignment
@@ -47,15 +47,23 @@ public class AssignmentsController {//сервис поручений
 
     @GetMapping(value = "/getAll")
     public List<Assignment> getAllAssignments() {
+        List<DelegatedAssignment> daList = delegateAssignmentService.g;
+        service.getAllAssignmentsOfThisUser().stream().forEach(assignment -> {
+
+        });
         return service.getAllAssignmentsOfThisUser();
     }
 
     @PostMapping("/delegate")
     public void delegateAssignment(Worker to,
                                    Assignment assignment,
-                                   Model model){
-        delegateAssService.addDelegatedAssignment(new DelegatedAssignment(assignment, to));
-        //return service.pushAnAssignmentToAnotherPerson(assignment, to);
+                                   Model model) {
+        delegateAssignmentService.addDelegatedAssignment(new DelegatedAssignment(assignment, to));
+    }
+
+    @PostMapping("/delegate/delete")
+    public void deleteDelegation(DelegatedAssignment da) {
+        delegateAssignmentService.deleteDelegatedAssignment(da);
     }
 
 }
