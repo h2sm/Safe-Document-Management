@@ -4,13 +4,11 @@ import com.h2sm.mainservice.dtos.Assignment;
 import com.h2sm.mainservice.dtos.DelegatedAssignment;
 import com.h2sm.mainservice.services.AssignmentService;
 import com.h2sm.mainservice.dtos.Worker;
-import com.h2sm.mainservice.services.DelegateAssService;
+import com.h2sm.mainservice.services.DelegateAssignmentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -18,7 +16,7 @@ import java.util.List;
 @RequestMapping("/assignments")
 public class AssignmentsController {//сервис поручений
     private final AssignmentService service;
-    private final DelegateAssService delegateAssService;
+    private final DelegateAssignmentService delegateAssService;
 
     @PostMapping("/new")
     public Assignment makeNewAssignment(Assignment a, Model model) {//create an assignment

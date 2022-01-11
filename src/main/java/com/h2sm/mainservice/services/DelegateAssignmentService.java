@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class DelegateAssService {
+public class DelegateAssignmentService {
     private final DelegateAssignmentRepository repo;
 
     public boolean checkIfAssignmentIsDelegated(Assignment a){
