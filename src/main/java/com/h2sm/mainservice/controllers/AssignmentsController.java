@@ -1,8 +1,10 @@
 package com.h2sm.mainservice.controllers;
 
 import com.h2sm.mainservice.dtos.Assignment;
+import com.h2sm.mainservice.dtos.DelegatedAssignment;
 import com.h2sm.mainservice.services.AssignmentService;
 import com.h2sm.mainservice.dtos.Worker;
+import com.h2sm.mainservice.services.DelegateAssService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -16,11 +18,11 @@ import java.util.List;
 @RequestMapping("/assignments")
 public class AssignmentsController {//сервис поручений
     private final AssignmentService service;
+    private final DelegateAssService delegateAssService;
 
     @PostMapping("/new")
     public Assignment makeNewAssignment(Assignment a, Model model) {//create an assignment
-
-        if (service.canMakeAnAssignment(a)){
+        if (service.canMakeAnAssignment(a)) {
             service.addAssignmentToDatabase(a);
             return a;
         } else {
@@ -46,20 +48,16 @@ public class AssignmentsController {//сервис поручений
     }
 
     @GetMapping(value = "/getAll")
-    public List<Assignment> getAllAssignments(){
+    public List<Assignment> getAllAssignments() {
         return service.getAllAssignmentsOfThisUser();
     }
 
-    @PostMapping("/push")
-    public Assignment pushAnAssignmentToAnotherPerson(Worker to,
-                                                      Assignment assignment,
-                                                      Model model) {
-        return service.pushAnAssignmentToAnotherPerson(assignment, to);
-    }
     @PostMapping("/delegate")
-    public Assignment delegate(Worker newAssignee, Assignment assignment){
-        return null;
+    public void delegateAssignment(Worker to,
+                                   Assignment assignment,
+                                   Model model){
+        delegateAssService.addDelegatedAssignment(new DelegatedAssignment(assignment, to));
+        //return service.pushAnAssignmentToAnotherPerson(assignment, to);
     }
-
 
 }

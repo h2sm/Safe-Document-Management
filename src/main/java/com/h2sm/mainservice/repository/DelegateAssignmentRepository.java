@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface DelegateAssignmentRepository extends JpaRepository<Assignment, Long> {
+public interface DelegateAssignmentRepository extends JpaRepository<DelegatedAssignment, Long> {
     @Query(value = "select exists(select * from delegateassignment where assignmentid = ?1)", nativeQuery = true)
     boolean isAssignmentDelegated(long a);
     @Query(value = "select a from assignment a, delegateassignment b where b.assignmentid = a.aid", nativeQuery = true)

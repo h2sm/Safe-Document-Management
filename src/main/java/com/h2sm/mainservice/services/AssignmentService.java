@@ -1,6 +1,7 @@
 package com.h2sm.mainservice.services;
 
 import com.h2sm.mainservice.dtos.Assignment;
+import com.h2sm.mainservice.dtos.DelegatedAssignment;
 import com.h2sm.mainservice.dtos.Worker;
 import com.h2sm.mainservice.dtos.Position;
 import com.h2sm.mainservice.repository.AssignmentRepository;
@@ -15,14 +16,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class AssignmentService {
-    private final AssignmentRepository repo;
+    private final AssignmentRepository aRepo;
 
     public void addAssignmentToDatabase(Assignment a) {
-        repo.save(a);
+        aRepo.save(a);
     }
 
     public void deleteAssignmentToDatabase(long id) {
-        repo.deleteById(id);
+        aRepo.deleteById(id);
     }
 
     public void modifyAssignment(Assignment a) {
@@ -30,11 +31,7 @@ public class AssignmentService {
     }
 
     public Assignment getAssignment(long id) {
-        return repo.getById(id);
-    }
-
-    public Assignment pushAnAssignmentToAnotherPerson(Assignment assignment, Worker to) {
-        return null;
+        return aRepo.getById(id);
     }
 
     public List<Assignment> getAllAssignmentsOfThisUser(){
