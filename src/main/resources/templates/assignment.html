@@ -10,12 +10,16 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="/static/js/getAssignments.js"></script>
+<script type="text/javascript" src="/static/js/newAssignment.js"></script>
 <span class='username'> </span> <br>
 <button type="button" class="btn btn-default" id="getAssignmentsBtn">Получить все созданные Мной поручения</button><br>
 <button type="button" class="btn btn-default" id="getDelegatedAssignmentsBtn">Получить все делегированные Мне поручения</button><br>
 <button type="button" class="btn btn-default" id="getGivenAssignmentsBtn">Получить все назначенные Мне поручения</button><br>
 <button type="button" class="" id="createNewAssignment">Создать новое поручение</button>
-
+<h2>Создать новое поручение</h2>
+<input type="text" id="emailAssignee" title="email сотрудника">
+<input type="file" id="file" title="Загрузить файлы">
+<button id="sendAssignment">Отправить</button><br>
 <h2>Все созданные мной поручения</h2>
 <table id="assignmentTable" border='1'>
     <tr>
