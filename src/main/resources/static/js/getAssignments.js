@@ -59,6 +59,35 @@ $(function () {
             }
         });
     });
+    $("#getGivenAssignmentsBtn").click(function () {
+        $.ajax({
+            type:"GET",
+            url: "/assignments/getGivenToMe ",
+            contentType: "application/json; charset=utf-8",
+            data: null,
+            success: function (response) {
+                console.log(response);
+                var trHTML = '';
+                $("tr:has(td)").remove();
+                $.each(response, function (i, item) {
+                    trHTML += '<tr><td>' + item.aid +
+                        '</td><td>' + item.whoCreated.name + ' ' + item.whoCreated.surname +
+                        '</td><td>' + item.whoAssignee.name + ' ' + item.whoAssignee.surname +
+                        '</td><td>' + item.status +
+                        '</td><td>' + item.delegated +
+                        +'</td></tr>';
+                });
+                $('#givenAssignments').append(trHTML);
+                if (response.length ===0){
+                    alert("Нет данных Вам поручений")
+                }
+
+            },
+            error: function (d) {
+                console.log(d);
+            }
+        });
+    });
     $(function() {
         $.ajax({
             type: "GET",

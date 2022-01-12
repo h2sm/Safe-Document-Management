@@ -56,7 +56,10 @@ public class AssignmentsController {//сервис поручений
         return service.getAssignment(id);
     }
 
-
+    @GetMapping("/assignments/getGivenToMe")
+    public List<Assignment> getAllAssGivenToMe(){
+        return service.getAllAssignmentsForThisUser();
+    }
     @GetMapping(value = "/assignments/getAss")
     public List<Assignment> getAllAss() {
         return service.getGivenAssignments();

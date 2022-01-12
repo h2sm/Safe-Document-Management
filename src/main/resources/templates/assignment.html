@@ -15,7 +15,9 @@
 <button type="button" class="btn btn-default" id="getAssignmentsBtn">Получить все созданные Мной поручения</button><br>
 <button type="button" class="btn btn-default" id="getDelegatedAssignmentsBtn">Получить все делегированные Мне поручения</button><br>
 <button type="button" class="btn btn-default" id="getGivenAssignmentsBtn">Получить все назначенные Мне поручения</button><br>
-<button type="button" class="" id="createNewAssignment">Создать новое поручение</button>
+<form action="/auth/logout" method="post">
+    <button type="submit">Выйти</button>
+</form>
 <h2>Создать новое поручение</h2>
 <input type="text" id="emailAssignee" title="email сотрудника">
 <input type="file" id="file" title="Загрузить файлы">
@@ -49,6 +51,7 @@
         <th>Кто дал поручение</th>
         <th>Кому было поручено</th>
         <th>Cтатус</th>
+        <th>Делегировано?</th>
         <th>Делегировать</th>
         <th>Подписать</th>
     </tr>
