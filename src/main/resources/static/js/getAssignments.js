@@ -12,17 +12,18 @@ $(function () {
                 $("tr:has(td)").remove();
                 $.each(response, function (i, item) {
                     var aid = item.aid;
-                    var position = item.whoCreated.position;
+                    var positionWhoCreated = item.whoCreated.position;
                     trHTML += '<tr><td id="' + aid + '">' + item.aid +
                         '</td><td>' + item.whoCreated.name + ' ' + item.whoCreated.surname +
                         '</td><td>' + item.whoAssignee.name + ' ' + item.whoAssignee.surname +
                         '</td><td>' + item.status +
                         '</td><td>' + item.delegated +
-                        '</td><td>' + '<input type="button" onclick="deleteAssignment('+aid+')" value="Удалить" />\n' +
+                        '</td><td>';
+                    if (positionWhoCreated === positionOfThisUser){
+                        trHTML+= '<input type="button" onclick="sign('+aid+')" value="Подписать как '+ positionWhoCreated+'" />\n'+
                         '<input type="button" onclick="cancelAssignment('+aid+')" value="Отменить" />\n' +
-                        '<input type="button" onclick="sign('+aid+')" value="Подписать как '+position+'" />\n';
-                    if (position === positionOfThisUser){
-                        trHTML+= '<input type="button" onclick="improve('+aid+')" value="На доработку" />\n';
+                          '<input type="button" onclick="deleteAssignment('+aid+')" value="Удалить" />\n' +
+                         '<input type="button" onclick="improve('+aid+')" value="На доработку" />\n' + '</td><td>';
                     }
                         trHTML+='</td><td>' + '<input type="button" onclick="location.href=\'/assignments/del/' + aid + '\';" value="Скачать документ" />\n'
                         + '</td></tr>';
@@ -80,12 +81,22 @@ $(function () {
                 var trHTML = '';
                 $("tr:has(td)").remove();
                 $.each(response, function (i, item) {
+                    positionWhoAssignee = item.whoAssignee.position;
+                    var aid = item.aid;
                     trHTML += '<tr><td>' + item.aid +
                         '</td><td>' + item.whoCreated.name + ' ' + item.whoCreated.surname +
                         '</td><td>' + item.whoAssignee.name + ' ' + item.whoAssignee.surname +
                         '</td><td>' + item.status +
-                        '</td><td>' + item.delegated +
-                        '</td><td>' +
+                        '</td><td>' + item.delegated + '</td><td>';
+                    if (positionWhoAssignee === positionOfThisUser){
+                        trHTML+= '<input type="button" onclick="sign('+aid+')" value="Подписать как '+ positionWhoAssignee+'" />\n'+
+                            '<input type="button" onclick="improve('+aid+')" value="На доработку" />\n' +
+                            '<form id="formElem" enctype="multipart/form-data">' +
+                            '<input type="file"  name="formElem" id="uploadFileNew" value="Загрузить документ" />\n' +
+                            '<input type="button" onclick="uploadDocument('+aid+')" value="Отправить документ" />\n' +
+                            '</form>';
+                    }
+                        trHTML+='</td><td>' +
                         '</td></tr>';
                 });
                 $('#givenAssignments').append(trHTML);
@@ -110,9 +121,10 @@ $(function () {
                 positionOfThisUser = resp.position;
                 if (resp.position === "DepartmentWorker") {
                     $('#emailAssignee').remove();
-                    $('#file').remove();
                     $('#sendAssignment').remove();
                     $('#assignmentTable').remove();
+                }
+                if (positionOfThisUser==="Director"){
                 }
 
             }
@@ -180,4 +192,41 @@ function cancelAssignment(id){
 }
 function improve(aid){
     console.log(aid);
+    $.ajax({
+        type: "POST",
+        url: "/assignments/improve",
+        data: {id:id},
+        success: function (response) {
+            alert("Отправлено на доработку")
+        },
+        error: function (d) {
+            console.log(d);
+        }
+    });
+}
+function done(aid){
+
+}
+function uploadDocument(aid){
+    var data = new FormData($('#formElem')[0]);
+    data.append("id",aid);
+    // data.append("file",);
+    // var send = {"id":aid, "file":data};
+    //console.log(send);
+    $.ajax({
+        url: "/docs/upload",
+        type: 'POST',
+        data: data,
+        enctype: "application/octet-stream",
+        processData: false, // tell jQuery not to process the data
+        contentType: false, // tell jQuery not to set contentType
+        cache: false,
+        success: function(res) {
+            console.log(res);
+        },
+
+        error: function(res) {
+            console.log('ERR: ' + res);
+        }
+    });
 }

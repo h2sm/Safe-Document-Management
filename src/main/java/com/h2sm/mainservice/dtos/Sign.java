@@ -19,9 +19,10 @@ public class Sign {
     @Column(name = "workerSigned")
     private boolean isWorkerSigned;
     @JoinColumn(name = "documentid")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private Document document;
     @JoinColumn(name = "assignentid")
     @OneToOne
     private Assignment assignment;
+    public Sign(){}
 }

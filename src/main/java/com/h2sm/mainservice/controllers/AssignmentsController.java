@@ -47,8 +47,9 @@ public class AssignmentsController {//сервис поручений
     public void cancelAssignment(@RequestParam(value = "id") Long aId) {//delete an assignment
         service.cancelAssignment(aId);
     }
+    @RequestMapping(value = "/assignments/improve", method = RequestMethod.POST)
     public void improveAssignment(@RequestParam(value = "id") Long aId){
-
+        service.improveAssignment(aId);
     }
 
 

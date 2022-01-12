@@ -1,5 +1,6 @@
 package com.h2sm.mainservice.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,4 +14,7 @@ public class Document implements Serializable {
     private long id;
     @Column(name = "doc")
     private byte[] data;
+    public Document(byte[] data){
+        this.data = data;
+    }
 }
