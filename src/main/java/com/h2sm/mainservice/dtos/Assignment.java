@@ -13,11 +13,11 @@ public class Assignment {
     @Column(name = "id")
     private long aid;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "whocreated")
     private Worker whoCreated;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "whoassignee")
     private Worker whoAssignee;
 

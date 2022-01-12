@@ -54,18 +54,18 @@ public class AssignmentsController {//сервис поручений
         return service.getAssignment(id);
     }
 
-    @GetMapping(value = "/getAll")
-    public String getAllAssignments(Model model) {
-        List<DelegatedAssignment> daList = delegateAssignmentService.getDelegatedAssignmentsForThisWorker();
-        model.addAttribute("tasks", daList);
-//        service.getAllAssignmentsOfThisUser().stream().forEach(assignment -> {
-//
-//        });
-        return "table/tableTask";
-    }
+//    @GetMapping(value = "/getAll")
+//    public String getAllAssignments(Model model) {
+//        List<DelegatedAssignment> daList = delegateAssignmentService.getDelegatedAssignmentsForThisWorker();
+//        model.addAttribute("tasks", daList);
+////        service.getAllAssignmentsOfThisUser().stream().forEach(assignment -> {
+////
+////        });
+//        return "table/tableTask";
+//    }
     @GetMapping(value = "/assignments/getAss")
     public List<Assignment> getAllAss(){
-        return service.getAllAssignmentsForThisUser();
+        return service.getGivenAssignments();
     }
 
     @PostMapping("/assignments/delegate")

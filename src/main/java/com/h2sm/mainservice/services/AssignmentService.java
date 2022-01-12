@@ -1,5 +1,6 @@
 package com.h2sm.mainservice.services;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.h2sm.mainservice.dtos.Assignment;
 import com.h2sm.mainservice.dtos.DelegatedAssignment;
 import com.h2sm.mainservice.dtos.Worker;
@@ -37,6 +38,9 @@ public class AssignmentService {
 
     public List<Assignment> getAllAssignmentsForThisUser(){
         return aRepo.getAssignmentsForThisUser(ContextUtil.getAuthorizedUserName());
+    }
+    public List<Assignment> getGivenAssignments(){
+        return aRepo.getGivenAssignments(ContextUtil.getAuthorizedUserName());
     }
 
     public boolean canMakeAnAssignment(Assignment a) {
