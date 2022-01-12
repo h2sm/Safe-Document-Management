@@ -39,11 +39,18 @@ public class AssignmentsController {//сервис поручений
         }
     }
 
-    @GetMapping("/assignments/del/{id}")
-    public boolean deleteAnAssignment(@PathVariable long id) {//delete an assignment
-        service.deleteAssignmentToDatabase(id);
-        return true;
+    @RequestMapping(value = "/assignments/delete", method = RequestMethod.POST)
+    public void deleteAnAssignment(@RequestParam(value = "id") Long aId) {//delete an assignment
+        service.deleteAssignmentToDatabase(aId);
     }
+    @RequestMapping(value = "/assignments/cancel", method = RequestMethod.POST)
+    public void cancelAssignment(@RequestParam(value = "id") Long aId) {//delete an assignment
+        service.cancelAssignment(aId);
+    }
+    public void improveAssignment(@RequestParam(value = "id") Long aId){
+
+    }
+
 
     @PostMapping("/assignments/modify")
     public String modifyAnAssignment(Assignment a) {
@@ -76,9 +83,10 @@ public class AssignmentsController {//сервис поручений
         delegateAssignmentService.addDelegatedAssignment(newAssigneeEmail, assignmentId);
     }
 
-    @PostMapping("/assignments/delegate/delete")
-    public void deleteDelegation(DelegatedAssignment da) {
-        delegateAssignmentService.deleteDelegatedAssignment(da);
+    @RequestMapping(value = "/assignments/delegation/delete", method = RequestMethod.POST)
+    public void deleteDelegation(@RequestParam(value = "id")Long delegatedAssID) {
+        delegateAssignmentService.deleteDelegatedAssignment(delegatedAssID);
     }
+
 
 }

@@ -2,7 +2,9 @@ package com.h2sm.mainservice.controllers;
 
 import com.h2sm.mainservice.dtos.Worker;
 import com.h2sm.mainservice.dtos.Position;
+import com.h2sm.mainservice.services.WorkerService;
 import com.h2sm.mainservice.utils.ContextUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 public class EmployeeController {
+    private final WorkerService workerService;
     @GetMapping("/getEmployees")
     public List<Worker> getListOfEmployees(){
         return null;
@@ -25,7 +29,8 @@ public class EmployeeController {
         return ResponseEntity.accepted();
     }
     @GetMapping("/getMyName")
-    public String returnMyName(){
-        return ContextUtil.getAuthorizedUserName();
+    public Worker returnMyName(){
+        return workerService.getWorkerByEmail(ContextUtil.getAuthorizedUserName());
+        //return ContextUtil.getAuthorizedUserName();
     }
 }

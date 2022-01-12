@@ -6,7 +6,6 @@ $(function () {
         $.ajax({
             type: "POST",
             url: "/assignments/new",
-            contentType: "application/json; charset=utf-8",
             data: {assigneeEmail:assigneeEmail},
             success: function (response) {
                 alert("Поручение отпралено")

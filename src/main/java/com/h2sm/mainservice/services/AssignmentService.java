@@ -1,10 +1,7 @@
 package com.h2sm.mainservice.services;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.h2sm.mainservice.dtos.Assignment;
-import com.h2sm.mainservice.dtos.DelegatedAssignment;
-import com.h2sm.mainservice.dtos.Worker;
-import com.h2sm.mainservice.dtos.Position;
+import com.h2sm.mainservice.dtos.*;
 import com.h2sm.mainservice.repository.AssignmentRepository;
 import com.h2sm.mainservice.utils.ContextUtil;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +48,16 @@ public class AssignmentService {
                 || userFromPosition.equals(Position.HeadOfDepartment)
                 || !userToPosition.equals(Position.Director)
                 || !userFromPosition.equals(Position.DepartmentWorker);
+    }
+    public void cancelAssignment(Long id){
+        var ass = getAssignment(id);
+        ass.setStatus(AssignmentStatus.cancelled);
+        aRepo.save(ass);
+    }
+    public void improveAssignment(Long id){
+        var ass = getAssignment(id);
+        ass.setStatus(AssignmentStatus.toImprove);
+        aRepo.save(ass);
     }
 
 }

@@ -37,10 +37,15 @@ public class DelegateAssignmentService {
                 repo.save(delegated);
             }
         }
+        System.out.println("нет");
     }
 
-    public void deleteDelegatedAssignment(DelegatedAssignment d) {
-        repo.delete(d);
+    public void deleteDelegatedAssignment(Long id) {
+        var da = repo.findById(id).orElseThrow(()-> new UsernameNotFoundException("No ass"));
+        var notDelegated = da.getAssignment();
+        notDelegated.setDelegated(false);
+        assignmentService.addAssignmentToDatabase(notDelegated);
+        repo.delete(da);
     }
 
     public Worker getNewAssignee(DelegatedAssignment d) {
@@ -58,7 +63,8 @@ public class DelegateAssignmentService {
     public boolean canPersonDelegate(Worker from, Worker to) {
         return to.getPosition() != Position.Director
                 || from.getPosition().equals(to.getPosition())
-                || from.getPosition().equals(Position.DepartmentWorker);
+                || from.getPosition().equals(Position.DepartmentWorker)
+                || from.equals(to);
     }
 
 }
