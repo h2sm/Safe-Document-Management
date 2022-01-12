@@ -2,6 +2,7 @@ package com.h2sm.mainservice.services;
 
 import com.h2sm.mainservice.dtos.Assignment;
 import com.h2sm.mainservice.dtos.DelegatedAssignment;
+import com.h2sm.mainservice.dtos.Position;
 import com.h2sm.mainservice.dtos.Worker;
 import com.h2sm.mainservice.repository.DelegateAssignmentRepository;
 import com.h2sm.mainservice.utils.ContextUtil;
@@ -25,11 +26,16 @@ public class DelegateAssignmentService {
     }
 
     public void addDelegatedAssignment(String emailTo, Long assignmentId) {
-        if (!repo.isAssignmentDelegated(assignmentId)){
+        if (!repo.isAssignmentDelegated(assignmentId)) {
             var worker = workerService.getWorkerByEmail(emailTo);
-            var assignment = assignmentService.getAssignment(assignmentId);
-            var delegated = new DelegatedAssignment(assignment,worker);
-            repo.save(delegated);
+            var thisWorker = workerService.getWorkerByEmail(ContextUtil.getAuthorizedUserName());
+            if (canPersonDelegate(worker, thisWorker)) {
+                var assignment = assignmentService.getAssignment(assignmentId);
+                assignment.setDelegated(true);
+                assignmentService.addAssignmentToDatabase(assignment);
+                var delegated = new DelegatedAssignment(assignment, worker);
+                repo.save(delegated);
+            }
         }
     }
 
@@ -47,6 +53,12 @@ public class DelegateAssignmentService {
 
     public List<DelegatedAssignment> getDelegatedAssignmentsForThisWorker() {
         return repo.getAllDelegatedAssignmentsForThisUser(ContextUtil.getAuthorizedUserName());
+    }
+
+    public boolean canPersonDelegate(Worker from, Worker to) {
+        return to.getPosition() != Position.Director
+                || from.getPosition().equals(to.getPosition())
+                || from.getPosition().equals(Position.DepartmentWorker);
     }
 
 }

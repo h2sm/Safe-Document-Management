@@ -1,12 +1,13 @@
 $(function () {
     $("#delegateTask").click(function () {
-        var id = $("#idAssignment").val();
+        var assignmentId = $("#idAssignment").val();
         var newAssigneeEmail = $("#emailNewAssignee").val();
+        console.log(assignmentId, newAssigneeEmail);
         $.ajax({
             type: "POST",
             url: "/assignments/delegate",
-            contentType: "application/json; charset=utf-8",
-            data: {email:newAssigneeEmail, assignmentId:id},
+            //contentType: "application/json; charset=utf-8",
+            data: {newAssigneeEmail:newAssigneeEmail, assignmentId:assignmentId},
             success: function (response) {
                 alert("Поручение передано")
             },

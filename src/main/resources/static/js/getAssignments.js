@@ -41,14 +41,15 @@ $(function () {
                 var trHTML = '';
                 $("tr:has(td)").remove();
                 $.each(response, function (i, item) {
-                    trHTML += '<tr><td>' + item.id +
-                        '</td><td>' + item.assignmentid.whoCreated + ' ' + item.whoCreated.surname +
-                        '</td><td>' + item.whoAssignee.name +
-                        '</td><td>' + item.status +
-                        '</td><td>' + item.delegated +
+                    trHTML += '<tr><td>' + item.assignment.aid +
+                        '</td><td>' + item.assignment.whoCreated.name + ' ' + item.assignment.whoCreated.surname +
+                        '</td><td>' + item.assignment.whoAssignee.name + ' ' + item.assignment.whoAssignee.surname +
+                        '</td><td>' + item.assignment.status +
+                        '</td><td>' + item.assignment.delegated +
+                        '</td><td>' + item.newAssignee.name + ' ' + item.newAssignee.surname
                         +'</td></tr>';
                 });
-                $('#assignmentTable').append(trHTML);
+                $('#delegatedAssignmentsToMe').append(trHTML);
                 if (response.length ===0){
                     alert("Нет делегированных Вам поручений")
                 }

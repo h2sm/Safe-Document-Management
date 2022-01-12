@@ -14,10 +14,10 @@ public class DelegatedAssignment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @JoinColumn(name = "assignmentid")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private Assignment assignment;
     @JoinColumn(name = "changedassignee")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private Worker newAssignee;
 
     public DelegatedAssignment(Assignment a, Worker w){

@@ -70,10 +70,10 @@ public class AssignmentsController {//сервис поручений
         return delegateAssignmentService.getDelegatedAssignmentsForThisWorker();
     }
 
-    @PostMapping("/assignments/delegate")
-    public void delegateAssignment(@RequestParam String emailTo,
-                                   @RequestParam Long assignmentId) {
-        delegateAssignmentService.addDelegatedAssignment(emailTo, assignmentId);
+    @RequestMapping(value = "/assignments/delegate", method = RequestMethod.POST)
+    public void delegateAssignment(@RequestParam(value = "newAssigneeEmail") String newAssigneeEmail,
+                                   @RequestParam(value = "assignmentId") Long assignmentId) {
+        delegateAssignmentService.addDelegatedAssignment(newAssigneeEmail, assignmentId);
     }
 
     @PostMapping("/assignments/delegate/delete")
