@@ -4,6 +4,7 @@ import com.h2sm.mainservice.dtos.Position;
 import com.h2sm.mainservice.dtos.Sign;
 import com.h2sm.mainservice.repository.SignRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,10 @@ public class SignService {
         var ass = assignmentService.getAssignment(assignmentId);
         var sign = new Sign(document,ass);
         signRepository.save(sign);
+
+    }
+    public Sign getSignByAssignment(Long assID){
+        return signRepository.findSignByAssignment_Aid(assID).orElseThrow(()-> new UsernameNotFoundException("no sign"));
     }
 
     public void setSignForDirector(Long assId){
