@@ -6,15 +6,22 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
-@Entity
+@Entity(name = "sign")
 public class Sign {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="sid")
+    @Column(name = "id")
     private long id;
-    @Column(name = "workersids")
-    private String workersIDs;
+    @Column(name = "directorsigned")
+    private boolean isDirectorSigned;
+    @Column(name = "headSigned")
+    private boolean isHeadSigned;
+    @Column(name = "workerSigned")
+    private boolean isWorkerSigned;
     @JoinColumn(name = "documentid")
     @OneToOne(fetch = FetchType.LAZY)
     private Document document;
+    @JoinColumn(name = "assignentid")
+    @OneToOne
+    private Assignment assignment;
 }

@@ -7,7 +7,7 @@ spring:
   application:
     name: Safe Document
   datasource:
-    url: jdbc:postgresql://localhost:5432/DocumentDB
+    url: jdbc:postgresql://localhost:5432/DocumentsDB
     username: docker
     password: docker
   main:

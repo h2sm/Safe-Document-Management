@@ -5,12 +5,12 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.*;
 
 @Data
-@Entity
+@Entity(name = "assignment")
 @RequiredArgsConstructor
 public class Assignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "aid")
+    @Column(name = "id")
     private long aid;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -28,13 +28,6 @@ public class Assignment {
     @Column(name="isdelegated")
     private boolean isDelegated;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "docs")
-    private Document docs;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "signs")
-    private Sign signs;
 
     public Assignment(Worker whoCreated, Worker whoAssignee){
         this.whoCreated = whoCreated;

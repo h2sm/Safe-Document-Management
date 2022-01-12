@@ -5,6 +5,8 @@ import com.h2sm.mainservice.dtos.DelegatedAssignment;
 import com.h2sm.mainservice.services.AssignmentService;
 import com.h2sm.mainservice.dtos.Worker;
 import com.h2sm.mainservice.services.DelegateAssignmentService;
+import com.h2sm.mainservice.services.WorkerService;
+import com.h2sm.mainservice.utils.ContextUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,14 +14,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController()
+@RestController
 @RequiredArgsConstructor
 public class AssignmentsController {//сервис поручений
     private final AssignmentService service;
     private final DelegateAssignmentService delegateAssignmentService;
+    private final WorkerService workerService;
 
     @PostMapping("/assignments/new")
-    public Assignment makeNewAssignment(Assignment a) {//create an assignment
+    public Assignment makeNewAssignment(String workerEmailTo) {//create an assignment
+        System.out.println(workerEmailTo);
+        var worker = workerService.getWorkerByEmail(workerEmailTo);
+        var thisWorker = workerService.getWorkerByEmail(ContextUtil.getAuthorizedUserName());
+        System.out.println(worker);
+        System.out.println(thisWorker);
+        var a = new Assignment(thisWorker,worker);
         if (service.canMakeAnAssignment(a)) {
             service.addAssignmentToDatabase(a);
             return a;

@@ -5,15 +5,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
-@Entity(name = "documents")
+@Entity(name = "document")
 public class Document implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "docid")
+    @Column(name = "id")
     private long id;
     @Column(name = "doc")
     private byte[] data;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "whouploaded")
-    private Worker whoUploaded;
 }

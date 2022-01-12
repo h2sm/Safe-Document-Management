@@ -28,7 +28,7 @@ public class Worker implements Serializable {
     private String surname;
     @Column(name = "uemail")
     private String email;
-    @Column(name = "upasswd")
+    @Column(name = "upassword")
     private String password;
     @Column(name = "uposition", nullable = false)
     @Enumerated(value = EnumType.STRING)

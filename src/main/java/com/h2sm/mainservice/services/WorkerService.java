@@ -26,6 +26,9 @@ public class WorkerService {
     public Worker getWorkerById(Long id) {
         return repo.getById(id);
     }
+    public Worker getWorkerByEmail(String email){
+        return repo.findByEmail(email).orElseThrow(() -> new NullPointerException("User not found"));
+    }
 
     public void addWorker(Worker worker) {
         repo.save(worker);

@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class DelegatedAssignment {
     @Id
-    @Column(name = "daid")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @JoinColumn(name = "assignmentid")
