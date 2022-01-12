@@ -11,6 +11,8 @@
 
 <script type="text/javascript" src="/static/js/getAssignments.js"></script>
 <script type="text/javascript" src="/static/js/newAssignment.js"></script>
+<script type="text/javascript" src="/static/js/delegateAssignment.js"></script>
+
 <span class='username'> </span> <br>
 <button type="button" class="btn btn-default" id="getAssignmentsBtn">Получить все созданные Мной поручения</button><br>
 <button type="button" class="btn btn-default" id="getDelegatedAssignmentsBtn">Получить все делегированные Мне поручения</button><br>
@@ -52,9 +54,12 @@
         <th>Кому было поручено</th>
         <th>Cтатус</th>
         <th>Делегировано?</th>
-        <th>Делегировать</th>
         <th>Подписать</th>
     </tr>
 </table>
+<h2>Делегировать поручения</h2>
+<input type="number" id="idAssignment" value="ID Поручения" title="ID поручения"/>
+<input type="text" id="emailNewAssignee" value="Email человека" title="Email человека"/>
+<input type="button" value="Переназначить" id="delegateTask"/>
 </body>
 </html>

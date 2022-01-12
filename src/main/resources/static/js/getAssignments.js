@@ -75,11 +75,12 @@ $(function () {
                         '</td><td>' + item.whoAssignee.name + ' ' + item.whoAssignee.surname +
                         '</td><td>' + item.status +
                         '</td><td>' + item.delegated +
-                        +'</td></tr>';
+                        '</td><td>' +
+                        '</td></tr>';
                 });
                 $('#givenAssignments').append(trHTML);
                 if (response.length ===0){
-                    alert("Нет данных Вам поручений")
+                    alert("Нет назначенных Вам поручений")
                 }
 
             },
