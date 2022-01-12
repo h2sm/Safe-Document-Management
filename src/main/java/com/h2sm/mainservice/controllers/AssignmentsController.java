@@ -12,15 +12,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController()
 @RequiredArgsConstructor
-@RequestMapping("/assignments")
 public class AssignmentsController {//сервис поручений
     private final AssignmentService service;
     private final DelegateAssignmentService delegateAssignmentService;
 
-    @PostMapping("/new")
-    public Assignment makeNewAssignment(Assignment a, Model model) {//create an assignment
+    @PostMapping("/assignments/new")
+    public Assignment makeNewAssignment(Assignment a) {//create an assignment
         if (service.canMakeAnAssignment(a)) {
             service.addAssignmentToDatabase(a);
             return a;
@@ -29,19 +28,19 @@ public class AssignmentsController {//сервис поручений
         }
     }
 
-    @GetMapping("/del/{id}")
+    @GetMapping("/assignments/del/{id}")
     public boolean deleteAnAssignment(@PathVariable long id) {//delete an assignment
         service.deleteAssignmentToDatabase(id);
         return true;
     }
 
-    @PostMapping("/modify")
+    @PostMapping("/assignments/modify")
     public String modifyAnAssignment(Assignment a) {
         service.modifyAssignment(a);
         return "null";
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/assignments/get/{id}")
     public Assignment getAnAssignment(@PathVariable long id) {
         return service.getAssignment(id);
     }
@@ -55,15 +54,19 @@ public class AssignmentsController {//сервис поручений
 //        });
         return "table/tableTask";
     }
+    @GetMapping(value = "/assignments/getAss")
+    public List<Assignment> getAllAss(){
+        return service.getAllAssignmentsForThisUser();
+    }
 
-    @PostMapping("/delegate")
+    @PostMapping("/assignments/delegate")
     public void delegateAssignment(Worker to,
                                    Assignment assignment,
                                    Model model) {
         delegateAssignmentService.addDelegatedAssignment(new DelegatedAssignment(assignment, to));
     }
 
-    @PostMapping("/delegate/delete")
+    @PostMapping("/assignments/delegate/delete")
     public void deleteDelegation(DelegatedAssignment da) {
         delegateAssignmentService.deleteDelegatedAssignment(da);
     }
