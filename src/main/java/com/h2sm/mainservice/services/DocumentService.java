@@ -13,12 +13,18 @@ import org.springframework.web.multipart.MultipartFile;
 @Transactional
 public class DocumentService {
     private final DocumentRepository documentRepository;
+
     public Document getDocumentFromDB(long id) {
         return documentRepository.getById(id);
     }
+
     @SneakyThrows
     public void addDocumentToDB(MultipartFile document) {
-        var doc = new Document(document.getBytes());
-        documentRepository.save(doc);
+        var bytes = document.getBytes();
+        if (bytes.length != 0) {
+            var doc = new Document(document.getBytes());
+            documentRepository.save(doc);
+            System.out.println("да");
+        }
     }
 }
