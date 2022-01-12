@@ -17,13 +17,20 @@ import java.util.List;
 @Transactional
 public class DelegateAssignmentService {
     private final DelegateAssignmentRepository repo;
+    private final AssignmentService assignmentService;
+    private final WorkerService workerService;
 
     public boolean checkIfAssignmentIsDelegated(Assignment a) {
         return repo.isAssignmentDelegated(a.getAid());
     }
 
-    public void addDelegatedAssignment(DelegatedAssignment d) {
-        repo.save(d);
+    public void addDelegatedAssignment(String emailTo, Long assignmentId) {
+        if (!repo.isAssignmentDelegated(assignmentId)){
+            var worker = workerService.getWorkerByEmail(emailTo);
+            var assignment = assignmentService.getAssignment(assignmentId);
+            var delegated = new DelegatedAssignment(assignment,worker);
+            repo.save(delegated);
+        }
     }
 
     public void deleteDelegatedAssignment(DelegatedAssignment d) {

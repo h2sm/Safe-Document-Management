@@ -10,11 +10,13 @@ $(function () {
                 var trHTML = '';
                 $("tr:has(td)").remove();
                 $.each(response, function (i, item) {
-                    trHTML += '<tr><td>' + item.aid +
+                    var aid = item.aid;
+                    trHTML += '<tr><td id="'+aid+'">' + item.aid +
                         '</td><td>' + item.whoCreated.name + ' ' + item.whoCreated.surname +
                         '</td><td>' + item.whoAssignee.name +
                         '</td><td>' + item.status +
                         '</td><td>' + item.delegated +
+                        '</td><td>' + '<input type="button" onclick="location.href=\'/assignments/del/'+aid+'\';" value="Удалить" />\n' +
                         +'</td></tr>';
                 });
                 $('#assignmentTable').append(trHTML);

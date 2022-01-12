@@ -28,7 +28,7 @@ public class AssignmentsController {//сервис поручений
         var thisWorker = workerService.getWorkerByEmail(ContextUtil.getAuthorizedUserName());
         System.out.println(worker);
         System.out.println(thisWorker);
-        var a = new Assignment(thisWorker,worker);
+        var a = new Assignment(thisWorker, worker);
         if (service.canMakeAnAssignment(a)) {
             service.addAssignmentToDatabase(a);
             return a;
@@ -56,20 +56,19 @@ public class AssignmentsController {//сервис поручений
 
 
     @GetMapping(value = "/assignments/getAss")
-    public List<Assignment> getAllAss(){
+    public List<Assignment> getAllAss() {
         return service.getGivenAssignments();
     }
 
     @GetMapping(value = "/assignments/delegatedToMe")
-    public List<DelegatedAssignment> getAllDelegatedToMe(){
+    public List<DelegatedAssignment> getAllDelegatedToMe() {
         return delegateAssignmentService.getDelegatedAssignmentsForThisWorker();
     }
 
     @PostMapping("/assignments/delegate")
-    public void delegateAssignment(Worker to,
-                                   Assignment assignment,
-                                   Model model) {
-        delegateAssignmentService.addDelegatedAssignment(new DelegatedAssignment(assignment, to));
+    public void delegateAssignment(@RequestParam String emailTo,
+                                   @RequestParam Long assignmentId) {
+        delegateAssignmentService.addDelegatedAssignment(emailTo, assignmentId);
     }
 
     @PostMapping("/assignments/delegate/delete")
