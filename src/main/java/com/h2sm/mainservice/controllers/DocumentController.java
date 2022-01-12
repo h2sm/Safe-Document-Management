@@ -13,8 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class DocumentController {
     private final DocumentService documentService;
-    private final SignService signService;
-    @RequestMapping(value = "/docs/download", method = RequestMethod.POST)
+    @RequestMapping(value = "/docs/download", method = RequestMethod.GET)//из
     public String downloadDocument(@RequestParam(name = "docid") long docID){
         return "null";
     }
@@ -22,10 +21,9 @@ public class DocumentController {
     @RequestMapping(value = "/docs/upload", method = RequestMethod.POST)
     @SneakyThrows
     public void uploadDocument(@RequestParam(value = "id") Long assID,
-                               @RequestParam(name = "formElem") MultipartFile formElem){
+                               @RequestParam(name = "formElem") MultipartFile formElem){//в бд
         //System.out.println(formElem.getName() + " " + assID);
-        documentService.addDocumentToDB(formElem);
-
+        documentService.addDocumentToDB(formElem, assID);
     }
     @GetMapping("/delete/{id}")
     public String deleteDocument(@PathVariable long id){

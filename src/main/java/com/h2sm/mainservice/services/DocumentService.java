@@ -19,7 +19,7 @@ public class DocumentService {
     }
 
     @SneakyThrows
-    public void addDocumentToDB(MultipartFile document) {
+    public void addDocumentToDB(MultipartFile document, Long assId) {
         var bytes = document.getBytes();
         if (bytes.length != 0) {
             var doc = new Document(document.getBytes());
