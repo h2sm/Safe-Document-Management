@@ -25,6 +25,7 @@ public class DocumentController {
                                @RequestParam(name = "formElem") MultipartFile formElem){
         //System.out.println(formElem.getName() + " " + assID);
         documentService.addDocumentToDB(formElem);
+
     }
     @GetMapping("/delete/{id}")
     public String deleteDocument(@PathVariable long id){
