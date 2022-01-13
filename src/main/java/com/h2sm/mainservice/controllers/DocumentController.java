@@ -23,7 +23,6 @@ public class DocumentController {
     }
 
     @RequestMapping(value = "/docs/upload", method = RequestMethod.POST)
-    @SneakyThrows
     public void uploadDocument(@RequestParam(value = "id") Long assID,
                                @RequestParam(name = "formElem") MultipartFile formElem){//в бд
         System.out.println(formElem.getName() + " " + assID);

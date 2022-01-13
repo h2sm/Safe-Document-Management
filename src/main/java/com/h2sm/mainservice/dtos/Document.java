@@ -16,6 +16,7 @@ public class Document implements Serializable {
     @Column(name = "id")
     private long id;
     @Column(name = "doc")
+    @Lob
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] data;
     @Column(name = "assignmentid")

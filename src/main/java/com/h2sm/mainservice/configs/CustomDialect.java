@@ -15,4 +15,5 @@ public class CustomDialect extends PostgreSQL82Dialect {
         }
         return super.remapSqlTypeDescriptor(sqlTypeDescriptor);
     }
+    
 }

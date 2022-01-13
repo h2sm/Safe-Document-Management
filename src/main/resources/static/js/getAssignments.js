@@ -80,10 +80,12 @@ $(function () {
                 console.log(response);
                 var trHTML = '';
                 $("tr:has(td)").remove();
+                var numRow = -1;
                 $.each(response, function (i, item) {
                     positionWhoAssignee = item.whoAssignee.position;
                     var aid = item.aid;
-                    trHTML += '<tr><td>' + item.aid +
+                    numRow=numRow+1;
+                    trHTML += '<tr rowNum="'+numRow+'"><td>' + item.aid +
                         '</td><td>' + item.whoCreated.name + ' ' + item.whoCreated.surname +
                         '</td><td>' + item.whoAssignee.name + ' ' + item.whoAssignee.surname +
                         '</td><td>' + item.status +
@@ -91,14 +93,14 @@ $(function () {
                     if (positionWhoAssignee === positionOfThisUser){
                         trHTML+= '<input type="button" onclick="sign('+aid+')" value="Подписать как '+ positionWhoAssignee+'" />\n'+
                             '<input type="button" onclick="improve('+aid+')" value="На доработку" />\n' +
-                            '<form id="formElem" enctype="multipart/form-data">' +
-                            '<input type="file"  name="formElem" id="uploadFileNew" value="Загрузить документ" />\n' +
-                            '<input type="button" onclick="uploadDocument('+aid+')" value="Отправить документ" />\n' +
-                            '</form>';
+                            '<form id="formElem" enctype="multipart/form-data" name="formelem">' +
+                            '<input type="file" name="fileElem" id="uploadFileNew" value="Загрузить документ" />\n' +
+                            '<input type="button" onclick="uploadDocument('+aid+ ',' +numRow+')" value="Отправить документ" />\n' +
+                            '</form>'+
+                            '<input type="button" onclick="location.href=\'/docByAssId/' + aid + '\'" value="Посмотреть документ" />\n';
                     }
                         trHTML+='</td><td>' +
-                            '<input type="button" onclick="location.href=\'/docByAssId/' + aid + '\';" value="Посмотреть документ" />\n'+
-                            '</td></tr>';
+                        '</td></tr>';
                 });
                 $('#givenAssignments').append(trHTML);
                 if (response.length === 0) {
@@ -208,29 +210,33 @@ function improve(aid){
 function done(aid){
 
 }
-function uploadDocument(aid){
-    var data = new FormData($('#formElem')[0]);
+function uploadDocument(aid,numRow){
+    console.log(aid, numRow);
+    var data = new FormData();
+    var arr2 = $('input[type=file]');
+    var myInput = arr2[numRow+1];
+    console.log(arr2);
+    console.log(myInput);
+    var file = myInput.files[0];
+    console.log(file);
     data.append("id",aid);
-    // data.append("file",);
-    // var send = {"id":aid, "file":data};
-    //console.log(send);
+    data.append("formElem",file);//$('input[type=file]')[numRow].files[0]
+    for (var pair of data.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+    }
     $.ajax({
         url: "/docs/upload",
         type: 'POST',
         data: data,
-        enctype: "application/octet-stream",
         processData: false, // tell jQuery not to process the data
         contentType: false, // tell jQuery not to set contentType
         cache: false,
         success: function(res) {
             console.log(res);
-            //setTimeout(postNewSign(aid),2000);
-            //postNewSign(aid);
-         //   getDoc(aid);
         },
 
         error: function(res) {
-            console.log('ERR: ' + res);
+            console.log('ERR: ' + res.toString());
         }
     });
 }
