@@ -16,8 +16,8 @@ public class SignService {
     private final AssignmentService assignmentService;
     private final DocumentService documentService;
 
-    public void createSignAfterUploadingFile(Long assignmentId, Long documentID){
-        var document = documentService.getDocumentFromDB(documentID);
+    public void createSignAfterUploadingFile(Long assignmentId){
+        var document = documentService.findDocByUniqueAssignmentID(assignmentId);
         var ass = assignmentService.getAssignment(assignmentId);
         var sign = new Sign(document,ass);
         signRepository.save(sign);
@@ -25,6 +25,16 @@ public class SignService {
     }
     public Sign getSignByAssignment(Long assID){
         return signRepository.findSignByAssignment_Aid(assID).orElseThrow(()-> new UsernameNotFoundException("no sign"));
+    }
+    public void deleteByAssignment(Long assID){
+        signRepository.deleteByAssignment_Aid(assID);
+    }
+    public void signPerson(Position pos, Long assId){
+        switch (pos){
+            case Director: setSignForDirector(assId);
+            case DepartmentWorker: setSignForWorker(assId);
+            case HeadOfDepartment:setSignForHead(assId);
+        }
     }
 
     public void setSignForDirector(Long assId){

@@ -12,4 +12,5 @@ public interface SignRepository extends JpaRepository<Sign, Long> {
     //@Query()
     //boolean isDocumentAppliedToSign();
     Optional<Sign> findSignByAssignment_Aid(Long id);
+    void deleteByAssignment_Aid(Long id);
 }

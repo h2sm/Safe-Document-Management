@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -20,11 +21,17 @@ public class DocumentService {
 
     @SneakyThrows
     public void addDocumentToDB(MultipartFile document, Long assId) {
-        var bytes = document.getBytes();
-        if (bytes.length != 0) {
-            var doc = new Document(document.getBytes());
-            documentRepository.save(doc);
-            System.out.println("да");
-        }
+        var len = document.getSize();
+        System.out.println(len);
+        String fileName = StringUtils.cleanPath(document.getOriginalFilename());
+        var type = document.getContentType();
+        var doc = new Document(document.getBytes(), assId, fileName, type);
+        documentRepository.save(doc);
+        System.out.println("да");
+
+    }
+
+    public Document findDocByUniqueAssignmentID(Long assid) {
+        return documentRepository.findDocumentByAssignmentID(assid);
     }
 }

@@ -16,9 +16,9 @@ public class Sign {
     private long id;
     @Column(name = "directorsigned")
     private boolean isDirectorSigned;
-    @Column(name = "headSigned")
+    @Column(name = "headsigned")
     private boolean isHeadSigned;
-    @Column(name = "workerSigned")
+    @Column(name = "workersigned")
     private boolean isWorkerSigned;
     @JoinColumn(name = "documentid")
     @OneToOne

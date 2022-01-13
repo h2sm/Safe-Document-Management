@@ -97,7 +97,8 @@ $(function () {
                             '</form>';
                     }
                         trHTML+='</td><td>' +
-                        '</td></tr>';
+                            '<input type="button" onclick="location.href=\'/docByAssId/' + aid + '\';" value="Посмотреть документ" />\n'+
+                            '</td></tr>';
                 });
                 $('#givenAssignments').append(trHTML);
                 if (response.length === 0) {
@@ -223,10 +224,58 @@ function uploadDocument(aid){
         cache: false,
         success: function(res) {
             console.log(res);
+            //setTimeout(postNewSign(aid),2000);
+            //postNewSign(aid);
+         //   getDoc(aid);
         },
 
         error: function(res) {
             console.log('ERR: ' + res);
         }
     });
+}
+function postNewSign(aid){
+    $.ajax({
+        type: "POST",
+        url: "/newSign",
+        data: {"assId":aid},
+        success: function (response) {
+            console.log(response)
+        },
+        error: function (d) {
+            console.log(d);
+        }
+    });
+
+// function getDoc(assId){
+//     fetch('http://localhost:8082')
+//         .then(resp => resp.blob())
+//         .then(blob => {
+//             const url = window.URL.createObjectURL(blob);
+//             const a = document.createElement('a');
+//             a.style.display = 'none';
+//             a.href = url;
+//             // the filename you want
+//             a.download = 'pic.png';
+//             document.body.appendChild(a);
+//             a.click();
+//             window.URL.revokeObjectURL(url);
+//             alert('your file has downloaded!');
+//         });
+    // $.ajax({
+    //     type:"GET",
+    //     url:"/getDocByAssId",
+    //     data: {"assId": assId},
+    //     contentType:""
+    //     success:function (response){
+    //         console.log(response);
+    //
+    //         //file.readAsDataURL(response);
+    //         //console.log(file);
+    //         //console.log(response);
+    //     },
+    //     error:function (resp){
+    //         console.log(resp);
+    //     }
+    // });
 }
